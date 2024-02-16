@@ -1,4 +1,6 @@
 class DocController < ApplicationController
+    before_action :require_login, only: [:new, :create]
+
     def index
         @docs=Doc.all
     end
@@ -9,12 +11,13 @@ class DocController < ApplicationController
             redirect_to doc_index_path
         end
     def new
-        @doc = current_user.doc.build
+        @doc = Doc.new
     end
     def create
         puts "DEbug #{params[:doc_index][:title]} second #{params[:doc_index][:content]} "
-        @doc=current_user.doc.build(title: params[:doc_index][:title],content: params[:doc_index][:content])
-        @doc.user_id= current_user
+        @doc=Doc.new(title: params[:doc_index][:title],content: params[:doc_index][:content])
+        puts "Current User #{current_user.username}"
+        @doc.user_id= current_user.id
         if @doc.save
             flash[:notice]='Document Created Successfully'
             redirect_to doc_path(@doc)
@@ -44,6 +47,13 @@ class DocController < ApplicationController
         @doc=Doc.find(params[:id])
         @doc.destroy
         flash[:error]="Doc Deleted Successfully"
+    end
+    def filter_file
+        @user=User.find(session[:user_id])
+        rescue ActiveRecord::RecordNotFound
+            redirect_to signup_path
+        
+        
     end
     private
         def doc_params

@@ -1,4 +1,5 @@
-<%= simple_form_for(user) do |form| %>
+<%= simple_form_for(user,class:"mt-5") do |form| %>
+<h1 class="text-center">Signup Form</h1>
 <div class="form-group">
     <%= form.label :"Username :"%>
     <%= form.text_field :username,class:"form-control",placeholder:"Username",required:true%>
@@ -26,5 +27,5 @@
         <% end %>
     <% end %>
 </div>
-<%= form.submit( @user.new_record? ? 'Signup' : "update",class:"btn btn-lg btn-success btn-block") %>
+<%= form.submit 'Signup',class:"btn btn-lg btn-success btn-block" %>
 <% end %>

@@ -1,9 +1,19 @@
-<h1>Details of <%= @doc.title %> Content</h1>
+<h2 class="text-center text-success font-weight-bold mt-3"><%= @doc.title %></h2>
+<div class="card text-center mt-5">
+  <div class="card-header font-weight-bold">
+    by <span class="text-primary"><%= link_to "#{@doc.user.username}",user_path(@doc.user.id) %></span>
+  </div>
+  <div class="card-body">
+    <p class="card-text "><%= @doc.content %></p>
+    <% if current_user==@doc.user && session[:user_id].present? %>
+        <%= link_to 'Edit',edit_doc_path(@doc),class:"btn btn-outline-primary"%>
+        <%= link_to 'Delete',@doc,data: {turbo_method: 'delete', turbo_confirm: "Are you sure"},class:"btn btn-outline-danger"%>
+    <% end %>
+  </div>
+  <div class="card-footer text-muted">
+    <p class="float-left font-weight-bold">Created <%= time_ago_in_words(@doc.created_at)%> Ago</p>
+    <p class="float-right font-weight-bold">Updated <%= time_ago_in_words(@doc.updated_at)%> Ago</p>
+  </div>
+</div>
 
-<p><%= @doc.content %></p>
-
-<%= link_to "Back", doc_index_path,class:"btn btn-lg btn-warning"%>
-
-<%= link_to 'Edit', edit_doc_path(@doc),class:"btn btn-lg btn-info"%>
-
-<%= button_to 'Delete', @doc, data: {turbo_method: :delete, turbo_confirm:  'Are you sure?'},class:"btn btn-lg btn-danger" %>
+<%= link_to "Back", doc_index_path,class:"btn btn-lg btn-outline-warning btn-block mt-3"%>
