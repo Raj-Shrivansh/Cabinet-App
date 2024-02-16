@@ -107,7 +107,7 @@ footer a {
             </ul>
             <ul class="nav justify-content-center">
               <% if session[:user_id].present?%>
-              <li class="nav-item active"><a class="nav-link text-white">Welcome <%= session[:user_name] %></a></li>
+              <li class="nav-item active"><a class="nav-link text-white">Welcome <%= current_user.username %></a></li>
               <% end %>
             </ul>         
             <ul class="navbar-nav ml-auto">
