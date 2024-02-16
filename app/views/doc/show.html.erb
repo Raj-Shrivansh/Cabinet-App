@@ -1,0 +1,9 @@
+<h1>Details of <%= @doc.title %> Content</h1>
+
+<p><%= @doc.content %></p>
+
+<%= link_to "Back", doc_index_path,class:"btn btn-lg btn-warning"%>
+
+<%= link_to 'Edit', edit_doc_path(@doc),class:"btn btn-lg btn-info"%>
+
+<%= button_to 'Delete', @doc, data: {turbo_method: :delete, turbo_confirm:  'Are you sure?'},class:"btn btn-lg btn-danger" %>
