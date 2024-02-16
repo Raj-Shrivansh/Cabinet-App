@@ -9,15 +9,18 @@ class DocController < ApplicationController
             redirect_to doc_index_path
         end
     def new
-        @doc = Doc.new
+        @doc = current_user.doc.build
     end
     def create
-        @doc=Doc.new(doc_params)
+        puts "DEbug #{params[:doc_index][:title]} second #{params[:doc_index][:content]} "
+        @doc=current_user.doc.build(title: params[:doc_index][:title],content: params[:doc_index][:content])
+        @doc.user_id= current_user
         if @doc.save
             flash[:notice]='Document Created Successfully'
             redirect_to doc_path(@doc)
         else
             flash[:notice]="Error Occured!!!"
+            puts  @doc.errors.full_messages
             render :new, status: :unprocessable_entity
         end
     end

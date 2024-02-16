@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many: Doc
+    has_many :doc
     before_save :normalize_data
     validates :username,uniqueness: {case_sensitive: false}
     validates :email,uniqueness: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
